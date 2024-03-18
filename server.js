@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const morgan = require("morgan");
 
 // Route files
 
@@ -12,6 +13,12 @@ const { PORT, NODE_ENV } = process.env;
 
 // Initialize express server with port and node enviroment
 const app = express();
+
+// Dev loggin middleware
+if (NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
+
 // Mount routers -> middleware
 app.use("/api/v1/bootcamps", bootcamps);
 
