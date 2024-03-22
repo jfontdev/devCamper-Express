@@ -1,4 +1,5 @@
 const ErrorResponse = require("../utils/errorResponse");
+const {model} = require("mongoose");
 const errorHandler = (err, req, res, next) => {
     let error = {...err}
 
@@ -9,7 +10,7 @@ const errorHandler = (err, req, res, next) => {
 
     // Mongoose bad ObjectID
     if (err.name === "CastError") {
-        const message = `Bootcamp not found with id of ${err.value}`
+        const message = `${Object.values(err.model).at(2)} not found with id of ${err.value}`
         const statusCode = 404
         error = new ErrorResponse(message,statusCode)
     }
