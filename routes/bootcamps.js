@@ -9,6 +9,9 @@ const {
     getBootcampsInRadius, bootcampPhotoUpload
 } = require("../controllers/bootcamps");
 
+const Bootcamp = require("../models/Bootcamp")
+const advancedResults = require("../middleware/advancedResults")
+
 // Include other resource routers
 const courseRouter = require("./courses")
 
@@ -18,7 +21,7 @@ const router = express.Router();
 router.use("/:bootcampId/courses", courseRouter)
 
 // Get all bootcamps
-router.route("/").get(getBootcamps);
+router.route("/").get(advancedResults(Bootcamp, "courses"), getBootcamps);
 
 // Get one bootcamp by id
 router.route("/:id").get(getBootcamp);
