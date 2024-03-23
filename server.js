@@ -16,6 +16,7 @@ connectDB();
 // Route files
 const bootcamps = require("./routes/bootcamps");
 const courses = require("./routes/courses")
+const auth = require("./routes/auth")
 const path = require("path");
 
 // Initialize express server with port and node enviroment
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, "public")))
 // Mount routers -> middleware
 app.use("/api/v1/bootcamps", bootcamps);
 app.use("/api/v1/courses", courses);
+app.use("/api/v1/auth", auth);
 
 app.use(errorHandler);
 
