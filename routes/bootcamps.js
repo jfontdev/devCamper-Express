@@ -6,7 +6,7 @@ const {
     createBootcamp,
     updateBootcamp,
     deleteBootcamp,
-    getBootcampsInRadius
+    getBootcampsInRadius, bootcampPhotoUpload
 } = require("../controllers/bootcamps");
 
 // Include other resource routers
@@ -34,5 +34,8 @@ router.route("/:id").delete(deleteBootcamp);
 
 // Get bootcamps in radius
 router.route("/radius/:zipcode/:distance").get(getBootcampsInRadius)
+
+// Upload photo to bootcamp
+router.route("/:id/photo").put(bootcampPhotoUpload)
 
 module.exports = router;
