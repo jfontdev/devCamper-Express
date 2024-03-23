@@ -12,7 +12,7 @@ const advancedResults = require("../middleware/advancedResults")
 
 const router = express.Router({mergeParams: true});
 
-const {protect} = require("../middleware/auth")
+const {protect, authorize} = require("../middleware/auth")
 
 // Get all courses
 router.route("/").get(advancedResults(Course,
@@ -25,12 +25,12 @@ router.route("/").get(advancedResults(Course,
 router.route("/:id").get(getCourse)
 
 // Create one course
-router.route("/").post(protect, addCourse)
+router.route("/").post(protect, authorize("publisher", "admin"), addCourse)
 
 // Update a course
-router.route("/:id").put(protect, updateCourse)
+router.route("/:id").put(protect, authorize("publisher", "admin"), updateCourse)
 
 // Delete a course
-router.route("/:id").delete(protect, deleteCourse)
+router.route("/:id").delete(protect, authorize("publisher", "admin"), deleteCourse)
 
 module.exports = router;
